@@ -18,8 +18,9 @@ from pathlib import Path
 load_dotenv()
 
 # ==================== CONFIGURACIÓN BÁSICA ====================
+# Render.com provides PORT environment variable, fallback to SERVER_PORT or default
 HOST = os.getenv('SERVER_HOST', '0.0.0.0')
-PORT = int(os.getenv('SERVER_PORT', 12345))
+PORT = int(os.getenv('PORT', os.getenv('SERVER_PORT', 12345)))
 
 JWT_SECRET = os.getenv('API_JWT_SECRET', 'tu_secreto_jwt_cambiar')
 JWT_ALG = "HS256"

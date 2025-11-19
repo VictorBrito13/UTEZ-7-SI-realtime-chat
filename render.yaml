@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: realtime-chat-websocket
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server_websocket.py
+    envVars:
+      - key: SERVER_HOST
+        value: 0.0.0.0
+      - key: API_JWT_SECRET
+        generateValue: true
+      - key: SIGNING_SECRET
+        generateValue: true
+    # Plan configuration (free tier)
+    plan: free
+    # Region (optional - defaults to oregon)
+    region: oregon
+
