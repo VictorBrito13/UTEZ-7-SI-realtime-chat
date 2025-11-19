@@ -1,0 +1,214 @@
+# ==================== ENVIRONMENT VARIABLES ====================
+# Files containing sensitive configuration and credentials
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+*.env
+
+# ==================== SSL/TLS CERTIFICATES AND KEYS ====================
+# Certificate and key files (NEVER commit these!)
+*.pem
+*.key
+*.cert
+*.crt
+*.cer
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+client_openssl.cnf
+openssl.cnf
+server_openssl.cnf
+
+# ==================== PDF FILES AND SIGNATURES ====================
+# PDF files (especially signed documents)
+*.pdf
+pdf_uploads/
+signatures_registry.json
+
+# ==================== PYTHON ====================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# ==================== DATABASES ====================
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# ==================== LOGS ====================
+# Log files
+*.log
+logs/
+*.log.*
+
+# ==================== EXPORT FILES ====================
+# Excel export files (may contain sensitive chat data)
+*.xlsx
+*.xls
+*.csv
+
+# ==================== IDE AND EDITOR FILES ====================
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ==================== OPERATING SYSTEM FILES ====================
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ==================== TEMPORARY FILES ====================
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+
+# ==================== SENSITIVE DATA ====================
+# Configuration files that might contain secrets
+config.ini
+secrets.json
+credentials.json
+*.secret
+*.conf.local
+
+# ==================== DEPLOYMENT ====================
+# Deployment artifacts
+deploy/
+*.tar.gz
+*.zip
+!requirements.txt
+
+# ==================== BACKUP FILES ====================
+# Backup files
+*.backup
+backup/
+backups/
+
