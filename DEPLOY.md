@@ -48,6 +48,10 @@ In the Render dashboard, go to your service → **Environment** tab and add:
 
 #### Optional Variables:
 - `SERVER_PORT`: Leave empty (Render provides `PORT` automatically)
+- `ALLOWED_ORIGINS`: Comma-separated list of allowed origins for CORS
+  - **Production**: `https://yourdomain.com,https://www.yourdomain.com`
+  - **Development**: `*` (allows all origins - NOT recommended for production)
+  - Example: `https://myapp.com,http://localhost:3000`
 - `PDF_FILE_ID`: Google Drive file ID if using Google Drive for PDFs
 - `PDF_LOCAL_PATH`: Path to local PDF file (if not using Google Drive)
 - `PDF_UPLOAD_DIR`: `./pdf_uploads` (directory for signed PDFs)
@@ -60,6 +64,14 @@ In the Render dashboard, go to your service → **Environment** tab and add:
 Render.com supports WebSocket connections, but you need to:
 - Use **wss://** (secure WebSocket) in production
 - Your service URL will be: `wss://your-service-name.onrender.com`
+
+#### CORS Configuration
+- **Important**: If your frontend is on a different domain than the WebSocket server, you MUST configure `ALLOWED_ORIGINS`
+- The server validates the `Origin` header during WebSocket handshake
+- **Production**: Set specific origins: `https://yourdomain.com,https://www.yourdomain.com`
+- **Development**: Can use `*` to allow all origins (not secure for production)
+- If CORS is not configured correctly, browsers will block WebSocket connections
+- Check browser console for CORS errors if connections fail
 
 #### Port Configuration
 - Render automatically provides a `PORT` environment variable
@@ -102,6 +114,10 @@ Render.com supports WebSocket connections, but you need to:
 - Ensure you're using `wss://` (not `ws://`) for secure connections
 - Check that the service is running (not sleeping on free tier)
 - Verify environment variables are set correctly
+- **CORS Issues**: If your frontend is on a different domain, make sure `ALLOWED_ORIGINS` includes your frontend URL
+  - Check browser console for CORS errors
+  - Verify the origin matches exactly (including protocol http/https and port)
+  - Example: If frontend is `https://myapp.com`, set `ALLOWED_ORIGINS=https://myapp.com`
 
 ### Service Sleeping (Free Tier)
 - Free tier services sleep after 15 minutes of inactivity

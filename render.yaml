@@ -11,6 +11,11 @@ services:
         generateValue: true
       - key: SIGNING_SECRET
         generateValue: true
+      # Configure ALLOWED_ORIGINS with your frontend domain(s)
+      # Example: https://myapp.com,https://www.myapp.com
+      # Use '*' only for development (NOT recommended for production)
+      - key: ALLOWED_ORIGINS
+        value: "*"
     # Plan configuration (free tier)
     plan: free
     # Region (optional - defaults to oregon)

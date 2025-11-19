@@ -26,6 +26,18 @@ JWT_SECRET = os.getenv('API_JWT_SECRET', 'tu_secreto_jwt_cambiar')
 JWT_ALG = "HS256"
 JWT_EXP = 3600  # 1 hora
 
+# ==================== CORS CONFIGURATION ====================
+# Allowed origins for WebSocket connections (comma-separated)
+# Use '*' to allow all origins (NOT recommended for production)
+# Example: 'https://myapp.com,https://www.myapp.com,http://localhost:3000'
+ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS', '*').split(',')
+ALLOWED_ORIGINS = [origin.strip() for origin in ALLOWED_ORIGINS if origin.strip()]
+
+if '*' in ALLOWED_ORIGINS:
+    print("⚠️  WARNING: CORS is set to allow ALL origins. This is not recommended for production!")
+else:
+    print(f"🌐 Allowed origins: {ALLOWED_ORIGINS}")
+
 # Configuración de firma de PDFs
 SIGNATURE_TOKEN_EXPIRY = int(os.getenv('SIGNATURE_TOKEN_EXPIRY', 1800))
 SIGNING_SECRET = os.getenv('SIGNING_SECRET', 'super-secret-key-change-me')
@@ -561,6 +573,31 @@ async def handler(websocket):
             })
             print(f"👋 {username} desconectado (conexión cerrada)")
 
+# ==================== CORS VALIDATION ====================
+async def process_request(path, request_headers):
+    """
+    Validates the origin of WebSocket connections (CORS for WebSockets)
+    This function is called before the WebSocket handshake is completed
+    """
+    origin = request_headers.get('Origin')
+    
+    # If no origin header, allow connection (non-browser clients)
+    if not origin:
+        return None
+    
+    # If '*' is in allowed origins, allow all
+    if '*' in ALLOWED_ORIGINS:
+        return None
+    
+    # Check if origin is in allowed list
+    if origin in ALLOWED_ORIGINS:
+        return None
+    
+    # Origin not allowed - reject connection
+    print(f"❌ Connection rejected from origin: {origin}")
+    print(f"   Allowed origins: {ALLOWED_ORIGINS}")
+    return 403, [], b"Origin not allowed"
+
 # ==================== INICIO DEL SERVIDOR ====================
 async def main():
     print("🚀 Iniciando servidor WebSocket SIN SSL (desarrollo)...")
@@ -585,7 +622,8 @@ async def main():
             HOST,
             PORT,
             ping_interval=20,
-            ping_timeout=20
+            ping_timeout=20,
+            process_request=process_request
         ):
             print(f"✅ Servidor WebSocket activo en ws://{HOST}:{PORT}")
             await asyncio.Future()  # run forever
